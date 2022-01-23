@@ -111,6 +111,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@adonisjs/bouncer@npm:2.2.5":
+  version: 2.2.5
+  resolution: "@adonisjs/bouncer@npm:2.2.5"
+  dependencies:
+    "@poppinss/utils": ^3.2.0
+  peerDependencies:
+    "@adonisjs/auth": ^8.0.0
+    "@adonisjs/core": ^5.1.0
+    "@adonisjs/view": ^6.0.0
+  peerDependenciesMeta:
+    "@adonisjs/auth":
+      optional: true
+    "@adonisjs/view":
+      optional: true
+  checksum: 17758ae486bc1c02b5dc751e82188cda0452ff60a59f2f0de822debf604affbf4f3ff4ddb82f014805542edd51b661bf4e99c645624c1a07d81238331fcd826c
+  languageName: node
+  linkType: hard
+
 "@adonisjs/config@npm:^3.0.6":
   version: 3.0.6
   resolution: "@adonisjs/config@npm:3.0.6"
@@ -268,7 +286,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@adonisjs/lucid@npm:^16.3.2":
+"@adonisjs/lucid@npm:16.3.2":
   version: 16.3.2
   resolution: "@adonisjs/lucid@npm:16.3.2"
   dependencies:
@@ -1274,8 +1292,9 @@ __metadata:
   dependencies:
     "@adonisjs/assembler": 5.3.0
     "@adonisjs/auth": 8.0.10
+    "@adonisjs/bouncer": 2.2.5
     "@adonisjs/core": 5.4.0
-    "@adonisjs/lucid": ^16.3.2
+    "@adonisjs/lucid": 16.3.2
     "@adonisjs/repl": 3.1.0
     adonis-preset-ts: 2.1.0
     eslint: 8.7.0
@@ -1289,7 +1308,7 @@ __metadata:
     proxy-addr: 2.0.7
     reflect-metadata: 0.1.13
     source-map-support: 0.5.21
-    typescript: ~4.5
+    typescript: 4.5
     youch: 3.1.0
     youch-terminal: 2.1.0
   languageName: unknown
@@ -5903,7 +5922,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~4.5":
+"typescript@npm:4.5":
   version: 4.5.5
   resolution: "typescript@npm:4.5.5"
   bin:
@@ -5913,7 +5932,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@~4.5#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.5#~builtin<compat/typescript>":
   version: 4.5.5
   resolution: "typescript@patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=493e53"
   bin:
