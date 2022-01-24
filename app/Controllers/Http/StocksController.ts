@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Stock from 'App/Models/Stock'
 import Database from '@ioc:Adonis/Lucid/Database'
-import { store as storeStockSchema } from 'App/Modules/Stock/Schema'
+import Schema from 'App/Modules/Stock/Schema'
 import pagination from 'App/Services/Pagination'
 
 export default class StocksController {
@@ -15,19 +15,31 @@ export default class StocksController {
     return { next, prev, stocks }
   }
 
-  public async store({ bouncer, request }: HttpContextContract) {
-    await bouncer.with('StockPolicy').authorize('create')
-    const stockData = await request.validate({ schema: storeStockSchema })
-    const stock = await Stock.create(stockData)
-    return stock
-  }
-
   public async show({ request, params }: HttpContextContract) {
     const stock = await Stock.findOrFail(params.id)
     return stock
   }
 
-  public async update({ bouncer, request }: HttpContextContract) {}
+  public async store({ bouncer, request }: HttpContextContract) {
+    await bouncer.with('StockPolicy').authorize('create')
+    const data = await request.validate({ schema: Schema.store })
+    const stock = await Stock.create(data)
+    return stock
+  }
 
-  public async destroy({}: HttpContextContract) {}
+  public async update({ bouncer, request, params }: HttpContextContract) {
+    const stock = await Stock.findOrFail(params.id)
+    await bouncer.with('StockPolicy').authorize('update', stock)
+    const data = await request.validate({ schema: Schema.update })
+    stock.merge(data)
+    await stock.save()
+    return stock
+  }
+
+  public async destroy({ bouncer, params, response }: HttpContextContract) {
+    const stock = await Stock.findOrFail(params.id)
+    await bouncer.with('StockPolicy').authorize('delete', stock)
+    await stock.delete()
+    return response.noContent()
+  }
 }
