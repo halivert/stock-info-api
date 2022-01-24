@@ -7,10 +7,10 @@ Route.group(() => {
   Route.group(() => {
     Route.post('/logout', 'AuthController.logout').as('auth.logout')
 
-    Route.resource('users', 'UsersController').apiOnly()
-
     Route.get('/me', async ({ auth }: HttpContextContract) => {
       return auth.user
     }).as('auth.me')
+
+    Route.resource('users', 'UsersController').apiOnly()
   }).middleware(['auth'])
 }).prefix('/v1')

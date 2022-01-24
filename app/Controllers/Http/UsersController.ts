@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import paginate from 'App/Services/Pagination'
+import Schema from 'App/Modules/User/Schema'
 
 export default class UsersController {
   public async index({ request, bouncer }: HttpContextContract) {
@@ -23,12 +24,15 @@ export default class UsersController {
 
   public async store({ request, bouncer }: HttpContextContract) {
     await bouncer.with('UserPolicy').authorize('create')
+    const data = await request.validate({ schema: Schema.store })
+    const user = await User.create(data)
+    return user
   }
 
   public async update({ params, request, bouncer }: HttpContextContract) {
     const user = await User.findOrFail(params.id)
     await bouncer.with('UserPolicy').authorize('update', user)
-    const data = request.only(['name', 'email', 'username', 'is_admin'])
+    const data = await request.validate({ schema: Schema.update })
     user.merge(data)
     await user.save()
     return user
