@@ -1,30 +1,16 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Stock from 'App/Models/Stock'
 import Database from '@ioc:Adonis/Lucid/Database'
-import Route from '@ioc:Adonis/Core/Route'
-import { store as storeStockSchema } from 'App/Modules/Stock/schema'
+import { store as storeStockSchema } from 'App/Modules/Stock/Schema'
+import pagination from 'App/Services/Pagination'
 
 export default class StocksController {
   public async index({ request }: HttpContextContract) {
-    const params = request.qs()
-    const offset = Number(params?.offset || 0)
-    const limit = Number(params?.limit || 10)
-
-    const stocks = await Stock.query().limit(limit).offset(offset)
-
-    const next = stocks.length === limit ? Route.makeUrl('stocks.index', {
-      qs: {
-        offset: offset + limit,
-        limit: limit,
-      },
-    }) : null
-
-    const prev = offset - limit >= 0 ? Route.makeUrl('stocks.index', {
-      qs: {
-        offset: offset - limit,
-        limit: limit,
-      },
-    }) : null
+    const {
+      next,
+      prev,
+      results: stocks,
+    } = await pagination(request, Stock, 'stocks.index')
 
     return { next, prev, stocks }
   }

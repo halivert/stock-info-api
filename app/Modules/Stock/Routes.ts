@@ -9,5 +9,10 @@ Route.group(() => {
 
   Route.group(() => {
     Route.post('/stocks', 'StocksController.store').as('stocks.store')
+    Route.patch('/stocks/:id', 'StocksController.update')
+      .where('id', Route.matchers.number())
+      .as('stocks.update')
+
+    Route.delete('/stocks/:id', 'StocksController.destroy')
   }).middleware(['auth'])
 }).prefix('/v1')
