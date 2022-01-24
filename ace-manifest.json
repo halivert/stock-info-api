@@ -1,5 +1,32 @@
 {
   "commands": {
+    "set:admin": {
+      "settings": {
+        "loadApp": true,
+        "stayAlive": false
+      },
+      "commandPath": "./commands/SetAdmin",
+      "commandName": "set:admin",
+      "description": "Set an user as admin with the given username",
+      "args": [
+        {
+          "type": "string",
+          "propertyName": "username",
+          "name": "username",
+          "required": true,
+          "description": "Username of the user to promote to admin"
+        }
+      ],
+      "aliases": [],
+      "flags": [
+        {
+          "name": "unset",
+          "propertyName": "unset",
+          "type": "boolean",
+          "description": "Unset admin status"
+        }
+      ]
+    },
     "dump:rcfile": {
       "settings": {},
       "commandPath": "@adonisjs/core/build/commands/DumpRc",

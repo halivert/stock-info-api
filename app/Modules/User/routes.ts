@@ -7,7 +7,7 @@ Route.group(() => {
   Route.group(() => {
     Route.post('/logout', 'AuthController.logout').as('auth.logout')
 
-    Route.get('/me', async ({ auth }) => {
+    Route.get('/me', async ({ auth }: HttpContextContract) => {
       return auth.user
     }).as('auth.me')
   }).middleware(['auth'])
