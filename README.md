@@ -17,4 +17,5 @@ database, for example: `stock_info`.
 - Copy `.env.example` to current (build) directory `cp ../.env.example ./.env`
 - Generate a new key `node ace generate:key`
 - Paste the key in the `.env` file and also fill database info and stuff
+- Run migrations `node ace migration:run --force`
 - Serve it `node server.js`
