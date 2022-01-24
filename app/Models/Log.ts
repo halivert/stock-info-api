@@ -8,12 +8,12 @@ export default class Log extends BaseModel {
   @column({
     serialize: (value: string) => JSON.parse(value),
   })
-  public stockData: object
+  public stockData: string
 
   @column({
     serialize: (value: string) => JSON.parse(value),
   })
-  public userData?: object
+  public userData?: string
 
   @column.dateTime({ autoCreate: true })
   public queriedAt: DateTime

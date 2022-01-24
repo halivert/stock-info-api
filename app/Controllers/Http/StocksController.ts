@@ -1,6 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Stock from 'App/Models/Stock'
-import Database from '@ioc:Adonis/Lucid/Database'
 import Schema from 'App/Modules/Stock/Schema'
 import pagination from 'App/Services/Pagination'
 import Log from 'App/Models/Log'
@@ -21,7 +20,7 @@ export default class StocksController {
     return { next, prev, stocks }
   }
 
-  public async show({ request, params, auth }: HttpContextContract) {
+  public async show({ params, auth }: HttpContextContract) {
     const stock = await Stock.findOrFail(params.id)
 
     await Log.create({

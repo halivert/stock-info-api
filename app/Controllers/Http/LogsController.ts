@@ -3,7 +3,7 @@ import Log from 'App/Models/Log'
 import pagination from 'App/Services/Pagination'
 
 export default class LogsController {
-  public async index ({ bouncer, auth, request }: HttpContextContract) {
+  public async index ({ bouncer, request }: HttpContextContract) {
     await bouncer.with('LogPolicy').authorize('viewList')
     const {
       next,
@@ -14,7 +14,7 @@ export default class LogsController {
     return { next, prev, logs }
   }
 
-  public async show ({ params, bouncer, auth }: HttpContextContract) {
+  public async show ({ params, bouncer }: HttpContextContract) {
     const log = await Log.findOrFail(params.id)
     await bouncer.with('LogPolicy').authorize('view', log)
     return log

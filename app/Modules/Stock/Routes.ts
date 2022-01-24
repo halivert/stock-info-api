@@ -1,5 +1,4 @@
 import Route from '@ioc:Adonis/Core/Route'
-import Stock from 'App/Models/Stock'
 
 Route.group(() => {
   Route.resource('stocks', 'StocksController')

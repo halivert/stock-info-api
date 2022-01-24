@@ -1,4 +1,5 @@
 import Route from '@ioc:Adonis/Core/Route'
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 Route.group(() => {
   Route.post('/register', 'AuthController.register').as('auth.register')
