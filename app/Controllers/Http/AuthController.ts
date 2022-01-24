@@ -12,15 +12,13 @@ export default class AuthController {
 
     const userData = await request.validate({ schema: newUserSchema })
 
-    const user = await User.create({
+    await User.create({
       username: userData.username,
       email: userData.email,
       password: userData.password,
     })
 
-    const token = await auth.use('api').attempt(userData.username, userData.password)
-
-    return token
+    return await auth.use('api').attempt(userData.username, userData.password)
   }
 
   public async login({ auth, request }: HttpContextContract) {
