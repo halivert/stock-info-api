@@ -5,10 +5,10 @@ Route.group(() => {
   Route.resource('stocks', 'StocksController')
     .apiOnly()
     .middleware({
+      index: ['silentAuth'],
+      show: ['silentAuth'],
       store: ['auth'],
       update: ['auth'],
       destroy: ['auth'],
     })
-
-  Route.group(() => {}).middleware(['auth'])
 }).prefix('/v1')

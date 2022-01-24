@@ -3,20 +3,32 @@ import Stock from 'App/Models/Stock'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Schema from 'App/Modules/Stock/Schema'
 import pagination from 'App/Services/Pagination'
+import Log from 'App/Models/Log'
 
 export default class StocksController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ request, auth }: HttpContextContract) {
     const {
       next,
       prev,
       results: stocks,
     } = await pagination(request, Stock, 'stocks.index')
 
+    await Log.create({
+      stockData: JSON.stringify(stocks.map((s) => s.serialize())),
+      userData: JSON.stringify(auth.user?.serialize() || null),
+    })
+
     return { next, prev, stocks }
   }
 
-  public async show({ request, params }: HttpContextContract) {
+  public async show({ request, params, auth }: HttpContextContract) {
     const stock = await Stock.findOrFail(params.id)
+
+    await Log.create({
+      stockData: JSON.stringify(stock.serialize()),
+      userData: JSON.stringify(auth.user?.serialize() || null),
+    })
+
     return stock
   }
 

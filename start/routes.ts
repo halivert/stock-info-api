@@ -21,6 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 import 'App/Modules/User/Routes'
 import 'App/Modules/Stock/Routes'
+import 'App/Modules/Log/Routes'
 
 Route.get('/', async () => {
   return { hello: 'Sherpa Brokers' }
