@@ -9,16 +9,16 @@ export default class AuthController {
     return await auth.use('api').attempt(data.username, data.password)
   }
 
-  public async login({ auth, request }: HttpContextContract) {
+  public async login({ auth, request, response }: HttpContextContract) {
     const data = await request.validate({ schema: Schema.login })
 
     try {
       const token = await auth.use('api').attempt(data.username, data.password)
       return token
     } catch (error) {
-      return {
-        error: 'Invalid username or password',
-      }
+      return response
+        .status(401)
+        .send({ error: 'Invalid username or password' })
     }
   }
 
