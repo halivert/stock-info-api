@@ -13,3 +13,5 @@ tmp
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+wrangler.toml

@@ -2,8 +2,13 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export const store = schema.create({
   name: schema.string({ trim: true }),
-  username: schema.string({ trim: true }),
-  email: schema.string.optional({ trim: true, escape: true }, [rules.email()]),
+  username: schema.string({ trim: true }, [
+    rules.unique({ table: 'users', column: 'username' }),
+  ]),
+  email: schema.string.optional({ trim: true, escape: true }, [
+    rules.email(),
+    rules.unique({ table: 'users', column: 'email' }),
+  ]),
   password: schema.string(),
 })
 
